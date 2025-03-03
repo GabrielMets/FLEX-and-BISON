@@ -1,0 +1,38 @@
+FLEX:
+
+Inicialmente, instale o flex na sua maquina:
+
+sudo apt-get install flex
+
+Será necessario a criação de um arquivo flex.l
+
+O arquivo contem as seguintes seções: Três partes, separadas por linhas que começam com %%:
+
+
+[Definições]
+%%
+[Regras]
+%%
+[Código do usuário] //aqui contem somente a função principal chama yylex(), que é a função gerada pelo Flex para realizar a análise léxica.
+
+Com o arquivo montado devemos usar:
+
+1) Gerar o arquivo C:
+
+flex flex.l
+
+2) Compilar código C:
+
+gcc lex.yy.c -o lex_cod -lfl
+
+3) Executar:
+
+./lex_cod < cod_exemplo
+
+OBS: cod_exemplo contem um exemplo real de um codigo para esse trabalho, contendo declarações, atribuições, IF, else e etc.
+
+NÃO é necessario criar um arquivo cod_exemplo, podemos simplesmente usar ./lex_cod e entrar com sequencia de tokens para avaliação.
+
+Saída:
+
+A saida deve ser os tokens analisados pelo analisador LEXICO Flex.

@@ -1,0 +1,62 @@
+Bison:
+
+Inicialmente, instale o Bison na sua maquina:
+
+sudo apt-get install bison
+
+Será necessario a criação de um arquivo Bison.y
+
+O arquivo contem as seguintes seções:
+
+
+%{
+Prólogo
+%}
+Declarações do Bison
+%%
+Regras gramaticais
+%%
+Epílogo
+
+ATENÇÃO:
+O Bison trabalha em conjunto com o Flex, com base no arquivo flex.l anterior, devemos criar o flex_mod.l com as seguintes alterações:
+
+%{
+#include "y.tab.h" //inico include é o arquivo y.tab.h
+%}
+
+// {...}resto do codigo {...}
+
+"int"       { return TIPO_INT; } //agora são returns.
+
+// {...}resto do codigo {...}
+
+RETIRAR A SEÇÃO "%%[Código do usuário]" COM O MAIN (UNICO MAIN PRESENTE NESSA ETAPA ESTARÁ PRESENTE NO BISON.
+
+
+Com o arquivo flex_mod.l montado devemos usar:
+
+1) Gerar o arquivo C:
+
+flex flex_mod.l
+
+yacc -d Bison.y //-d server para gerar o arquivo y.tab.h com as definições dos tokens. obs: warnings podem ocorrer...
+
+2) Compilar código C:
+
+gcc lex.yy.c y.tab.c -o compilador //obs: warnings podem ocorrer...
+
+3) Executar:
+
+./compilador cod_exemplo
+
+OBS: cod_exemplo contem um exemplo real de um codigo para esse trabalho, contendo declarações, atribuições, IF, else e etc.
+
+NÃO é necessario criar um arquivo cod_exemplo, podemos simplesmente usar ./compilador e entrar com sequencia de codigos para avaliação.
+
+Saída:
+
+Não deve possuir saida caso o codigo sejá valido, porem ao inserir um erro ao codigo como "while K(x < 20)" deve retornar uma saida:
+
+Erro: syntax error
+
