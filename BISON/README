@@ -56,7 +56,7 @@ NÃO é necessario criar um arquivo cod_exemplo, podemos simplesmente usar ./com
 
 Saída:
 
-Não deve possuir saida caso o codigo sejá valido, porem ao inserir um erro ao codigo como "while K(x < 20)" deve retornar uma saida:
+Caso o codigo sejá valido, a saida é "Análise sintática finalizada com sucesso.", porem ao inserir um erro ao codigo como "while K(x < 20)" deve retornar uma saida:
 
-Erro: syntax error
-
+Erro na linha 'N': 'erro'
+Análise sintática concluída com erros.

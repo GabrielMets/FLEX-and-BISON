@@ -1,5 +1,6 @@
 %{
 #include "y.tab.h"
+extern int yylineno;
 %}
 
 %option noyywrap
@@ -34,8 +35,12 @@ NUM [0-9]+(\.[0-9]+)?
 {ID}        { return ID; }
 {NUM}       { return NUM; }
 
-[ \t\n] ;
+[ \t]+ ;
+
+\n { yylineno++; }
 
 . { yyerror("Caractere não reconhecido"); }
+
+
 
 %%

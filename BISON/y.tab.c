@@ -74,12 +74,13 @@
 extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
+extern int yylineno;
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Erro: %s\n", s);
+    fprintf(stderr, "Erro na linha %d: %s\n", yylineno, s);
 }
 
-#line 83 "y.tab.c"
+#line 84 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -623,10 +624,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    24,    24,    27,    28,    29,    32,    33,    36,    37,
-      40,    41,    42,    45,    46,    47,    50,    51,    52,    55,
-      56,    57,    58,    61,    64,    65,    66,    67,    68,    69,
-      72,    73
+       0,    25,    25,    28,    29,    30,    33,    34,    37,    38,
+      41,    42,    43,    46,    47,    48,    51,    52,    53,    56,
+      57,    58,    59,    62,    65,    66,    67,    68,    69,    70,
+      73,    74
 };
 #endif
 
@@ -1224,7 +1225,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1228 "y.tab.c"
+#line 1229 "y.tab.c"
 
       default: break;
     }
@@ -1417,11 +1418,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 76 "Bison.y"
+#line 77 "Bison.y"
 
 
 int main(int argc, char **argv) {
-if (argc > 1) {
+    if (argc > 1) {
         yyin = fopen(argv[1], "r");
         if (!yyin) {
             perror("Erro ao abrir o arquivo");
@@ -1429,7 +1430,11 @@ if (argc > 1) {
         }
     }
 
-    yyparse(); //Sintatico
+    if (yyparse() == 0) {
+        printf("Análise sintática finalizada com sucesso.\n");
+    } else {
+        printf("Análise sintática concluída com erros.\n");
+    }
 
     if (argc > 1) {
         fclose(yyin);
